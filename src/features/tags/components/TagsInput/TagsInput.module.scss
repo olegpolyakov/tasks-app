@@ -1,0 +1,13 @@
+.root {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--kui-space-xxs);
+}
+
+.input {
+    font-family: var(--kui-font-family);
+    flex: 1 0 auto;
+    border: none;
+    background: none;
+    outline: none;
+}

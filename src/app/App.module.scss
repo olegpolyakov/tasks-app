@@ -1,0 +1,6 @@
+.root {
+    height: 100dvh;
+    display: grid;
+    grid-template-columns: min-content auto;
+    overflow: hidden;
+}

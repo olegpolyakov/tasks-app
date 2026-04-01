@@ -1,0 +1,6 @@
+{
+  "extends": "@olegpoliakov/shared/client/tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "."
+  }
+}
