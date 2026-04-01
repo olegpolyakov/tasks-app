@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import type { Project } from '@olegpoliakov/core';
+import type { Project } from '@olegpoliakov/tasks/core';
 import { Button, Flex, Input, Textarea } from 'kantanui';
 
 export default function ProjectForm({

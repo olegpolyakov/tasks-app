@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 
-import type { Project } from '@olegpoliakov/core';
+import type { Project } from '@olegpoliakov/tasks/core';
 import { useAtom } from 'jotai';
 
 import * as api from '../api';

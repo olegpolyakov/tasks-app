@@ -1,7 +1,7 @@
 import { type ReactNode, useCallback, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import type { Project } from '@olegpoliakov/core';
+import type { Project } from '@olegpoliakov/tasks/core';
 import { Dialog } from 'kantanui';
 
 import { ProjectForm } from '../components';

@@ -1,6 +1,6 @@
 import { type ReactNode,useEffect, useState } from 'react';
 
-import { Button, ButtonGroup, Flex, Heading, Icon } from 'kantanui';
+import { Button, ButtonGroup, Heading, Icon } from 'kantanui';
 
 import { containsEmoji } from '@/shared/helpers/emoji';
 

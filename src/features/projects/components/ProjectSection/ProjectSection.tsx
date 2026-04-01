@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import type { ProjectSection, Task } from '@olegpoliakov/core/entities';
+import type { ProjectSection, Task } from '@olegpoliakov/tasks/core';
 import { Box, Button, Flex, Menu } from 'kantanui';
 
 import { TaskInput, TasksList, useTaskContext } from '@/features/tasks';

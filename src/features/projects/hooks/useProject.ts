@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import type { Project, ProjectSection, Task } from '@olegpoliakov/core';
+import type { Project, ProjectSection, Task } from '@olegpoliakov/tasks/core';
 
 import * as tasksApi from '@/features/tasks/api';
 

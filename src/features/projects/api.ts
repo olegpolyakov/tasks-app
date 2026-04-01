@@ -1,4 +1,4 @@
-import type { Project, ProjectSection, Task } from '@olegpoliakov/core';
+import type { Project, ProjectSection, Task } from '@olegpoliakov/tasks/core';
 
 import { API_URL } from '@/shared/constants';
 
