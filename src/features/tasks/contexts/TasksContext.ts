@@ -1,13 +1,13 @@
 import { createContext, useContext } from 'react';
 
-import type { Task } from '@olegpoliakov/tasks-core';
+import type { Task } from '@olegpolyakov/tasks-core';
 
 export type TasksContext = {
     heading?: string;
     tasks: Task[];
-    createTask: (data: Partial<Task>) => Promise<void>;
-    updateTask: (id: string, data: Partial<Task>) => Promise<void>;
-    toggleTask: (id: string, completed: boolean) => Promise<void>;
+    createTask: (data: Partial<Task>) => Promise<Task>;
+    updateTask: (id: string, data: Partial<Task>) => Promise<Task>;
+    toggleTask: (id: string, completed: boolean) => Promise<Task>;
     deleteTask: (id: string) => Promise<void>;
 };
 

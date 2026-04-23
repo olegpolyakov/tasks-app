@@ -1,8 +1,17 @@
 import { NavLink } from 'react-router-dom';
 
-import { Item, List } from 'kantanui';
+import { Badge, Item, List } from 'kantanui';
+
+import { useTasksContext } from '../../contexts';
+import { filters } from '../../logic/filter';
 
 export default function TasksNav() {
+    const { tasks } = useTasksContext();
+
+    const todayCount = tasks.filter(filters.today).length;
+    const inboxCount = tasks.filter(filters.inbox).length;
+    const allCount = tasks.length;
+
     return (
         <List as="nav" gap="s">
             <NavLink to="/today">
@@ -10,6 +19,13 @@ export default function TasksNav() {
                     <Item
                         icon="today"
                         content="Today"
+                        end={
+                            <Badge
+                                content={todayCount}
+                                size="s"
+                                variant="tinted"
+                            />
+                        }
                         variant="plain"
                         shape="rounded-s"
                         active={isActive}
@@ -23,6 +39,13 @@ export default function TasksNav() {
                     <Item
                         icon="inbox"
                         content="Inbox"
+                        end={
+                            <Badge
+                                content={inboxCount}
+                                size="s"
+                                variant="tinted"
+                            />
+                        }
                         variant="plain"
                         shape="rounded-s"
                         active={isActive}
@@ -36,6 +59,13 @@ export default function TasksNav() {
                     <Item
                         icon="done_all"
                         content="All"
+                        end={
+                            <Badge
+                                content={allCount}
+                                size="s"
+                                variant="tinted"
+                            />
+                        }
                         shape="rounded-s"
                         variant="plain"
                         active={isActive}

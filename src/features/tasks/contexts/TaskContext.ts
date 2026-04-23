@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import type { Task } from '@olegpoliakov/tasks-core';
+import type { Task } from '@olegpolyakov/tasks-core';
 
 export type TaskContext = {
     task: Task;

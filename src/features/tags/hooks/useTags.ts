@@ -1,7 +1,8 @@
 import { useCallback, useEffect } from 'react';
 
-import type { Tag } from '@olegpoliakov/core/entities';
 import { useAtom } from 'jotai';
+
+import type { Tag } from '@olegpolyakov/tasks-core';
 
 import * as api from '../api';
 import { tagsAtom } from '../atoms';
@@ -14,15 +15,19 @@ export default function useTags() {
     }, [setTags]);
 
     const createTag = useCallback(async (data: Partial<Tag>) => {
-        const nextTag = await api.createTag(data);
+        const createdTag = await api.createTag(data);
 
-        setTags(prevTags => [...prevTags, nextTag]);
+        setTags(prevTags => [...prevTags, createdTag]);
+
+        return createdTag;
     }, [setTags]);
 
     const updateTag = useCallback(async (id: string, data: Partial<Tag>) => {
         const updatedTag = await api.updateTag(id, data);
 
         setTags(prevTags => prevTags.map(tag => tag.id === id ? updatedTag : tag));
+
+        return updatedTag;
     }, [setTags]);
 
     const deleteTag = useCallback(async (id: string) => {

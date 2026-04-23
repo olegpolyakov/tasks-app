@@ -1,12 +1,12 @@
-import { FormEvent, useState } from 'react';
+import { SubmitEvent, useState } from 'react';
 
 import { Input } from 'kantanui';
 
 export default function TaskInput({ onSubmit }: { onSubmit?: (data: {title: string}) => void }) {
     const [title, setTitle] = useState('');
 
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
+    const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
+        event.preventDefault();
         setTitle('');
         onSubmit?.({ title });
     };
@@ -14,7 +14,7 @@ export default function TaskInput({ onSubmit }: { onSubmit?: (data: {title: stri
     return (
         <form onSubmit={handleSubmit}>
             <Input
-                placeholder="New task title"
+                placeholder="New task"
                 value={title}
                 variant="outlined-tinted"
                 onChange={({ value }) => setTitle(value)}

@@ -1,6 +1,6 @@
 import { type ReactNode, useCallback, useMemo, useState } from 'react';
 
-import type { Task } from '@olegpoliakov/tasks-core';
+import type { Task } from '@olegpolyakov/tasks-core';
 
 import { TaskContext, useTasksContext } from '../contexts';
 

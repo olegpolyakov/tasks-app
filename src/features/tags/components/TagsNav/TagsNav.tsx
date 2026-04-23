@@ -1,8 +1,6 @@
-import type { MouseEvent } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import type { Tag } from '@olegpoliakov/core';
-import { Badge, Button, Item, List, Menu, Text } from 'kantanui';
+import { Badge, Item, List } from 'kantanui';
 
 import { useTasksContext } from '@/features/tasks';
 import EntityIcon from '@/shared/components/EntityIcon';
@@ -13,21 +11,7 @@ import styles from './TagsNav.module.scss';
 
 export default function TagsNav() {
     const { tasks } = useTasksContext();
-    const { tags, openTagDialog, deleteTag } = useTagsContext();
-
-    const handleMenuClick = (event: MouseEvent) => {
-        event.stopPropagation();
-    };
-
-    const handleEdit = (tag: Tag) => {
-        openTagDialog(tag);
-    };
-
-    const handleDelete = (tag: Tag) => {
-        if (confirm(`Are you sure you want to delete ${tag.name}?`)) {
-            deleteTag(tag.id);
-        }
-    };
+    const { tags } = useTagsContext();
 
     return (
         <List className={styles.root} gap="s">
@@ -41,40 +25,12 @@ export default function TagsNav() {
                         <Item
                             key={tag.id}
                             start={<EntityIcon icon={tag.icon || 'tag'} />}
-                            content={
-                                <Text
-                                    content={tag.name}
-                                    end={
-                                        <Badge
-                                            content={tasks.filter(task => task.tagIds?.includes(tag.id)).length}
-                                            size="s" 
-                                            variant="tinted"
-                                        />
-                                    }
-                                />
-                            }
+                            content={tag.name}
                             end={
-                                <Menu
-                                    trigger={
-                                        <Button
-                                            icon="more_vert"
-                                            size="s"
-                                            onClick={handleMenuClick}
-                                        />
-                                    }
-                                    items={[
-                                        {
-                                            content: 'Edit',
-                                            icon: 'edit',
-                                            onClick: () => handleEdit(tag)
-                                        },
-                                        {
-                                            content: 'Delete',
-                                            icon: 'delete',
-                                            onClick: () => handleDelete(tag)
-                                        }
-                                    ]}
-                                    size="s"
+                                <Badge
+                                    content={tasks.filter(task => task.tagIds?.includes(tag.id)).length}
+                                    size="s" 
+                                    variant="tinted"
                                 />
                             }
                             variant="plain"

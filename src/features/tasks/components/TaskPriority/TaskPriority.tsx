@@ -1,5 +1,6 @@
-import { TaskPriority as TaskPriorityEnum } from '@olegpoliakov/tasks-core';
 import { Badge, Field, Pill, PillGroup } from 'kantanui';
+
+import { TaskPriority as TaskPriorityEnum } from '@olegpolyakov/tasks-core';
 
 export default function TaskPriority({
     priority,

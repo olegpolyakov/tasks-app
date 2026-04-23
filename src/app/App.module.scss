@@ -4,3 +4,11 @@
     grid-template-columns: min-content auto;
     overflow: hidden;
 }
+
+.heading {
+    padding: var(--kui-space-m) 0;
+}
+
+.logo {
+    width: 36px;
+}

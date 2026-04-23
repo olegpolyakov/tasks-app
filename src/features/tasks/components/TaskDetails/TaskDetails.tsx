@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
-import type { Task } from '@olegpoliakov/tasks-core';
 import { Checkbox, Field, Heading, Icon, Input, Textarea } from 'kantanui';
+
+import type { Task } from '@olegpolyakov/tasks-core';
 
 import Editable from '@/shared/components/Editable';
 
@@ -50,15 +51,6 @@ export default function TaskDetails({
                     />
                 </Field>
 
-                <Field label="Description">
-                    <Textarea
-                        value={content}
-                        onChange={({ value = '' }) => {
-                            setContent(value);
-                        }}
-                        onBlur={() => onUpdate(task.id, { content })}
-                    />
-                </Field>
 
                 <TaskPriority
                     priority={task.priority}
@@ -69,6 +61,16 @@ export default function TaskDetails({
                     task={task}
                     onUpdate={onUpdate}
                 />
+                
+                <Field label="Description">
+                    <Textarea
+                        value={content}
+                        onChange={({ value = '' }) => {
+                            setContent(value);
+                        }}
+                        onBlur={() => onUpdate(task.id, { content })}
+                    />
+                </Field>
             </div>
         </div>
     );

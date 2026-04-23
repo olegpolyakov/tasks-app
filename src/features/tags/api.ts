@@ -1,4 +1,4 @@
-import type { Tag } from '@olegpoliakov/core/entities';
+import type { Tag } from '@olegpolyakov/tasks-core';
 
 import { API_URL } from '@/shared/constants';
 
@@ -44,9 +44,11 @@ export async function updateTag(id: string, data: Partial<Tag>) {
     return response.json();
 }
 
-export async function deleteTag(id: string) {
+export async function deleteTag(id: string, { deleteTasks = false }: { deleteTasks?: boolean } = {}) {
     const response = await fetch(`${API_URL}/tags/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ deleteTasks })
     });
 
     if (!response.ok) {

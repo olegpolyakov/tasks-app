@@ -1,8 +1,11 @@
 import { BrowserRouter as Router, Navigate,Route, Routes } from 'react-router-dom';
 
-import { Provider as UIProvider, Text } from 'kantanui';
+import { Button, Provider as UIProvider, Text } from 'kantanui';
+import { Heading } from 'kantanui';
 
-import { Project, ProjectCreateAction, ProjectsNav } from '@/features/projects';
+import Logo from '@olegpolyakov/frontend/assets/logo.svg';
+
+import { List, ListCreateAction, ListsNav } from '@/features/lists';
 import { Tag, TagsNav } from '@/features/tags';
 import { Tasks, TasksNav } from '@/features/tasks';
 
@@ -19,6 +22,18 @@ export default function App() {
                 <DataProvider>
                     <div className={styles.root}>
                         <AppNav>
+                            <Heading
+                                className={styles.heading}
+                                start={<Logo className={styles.logo} />}
+                                content="Tasks"
+                                end={
+                                    <Button
+                                        icon="settings"
+                                        title="Settings"
+                                    />
+                                }
+                            />
+            
                             <TasksNav />
 
                             <Text
@@ -30,13 +45,13 @@ export default function App() {
                             <TagsNav />
 
                             <Text
-                                content="Projects"
-                                end={<ProjectCreateAction icon="add" size="xs" />}
+                                content="Lists"
+                                end={<ListCreateAction icon="add" size="xs" />}
                                 color="secondary"
                                 size="xs"
                                 decorative
                             />
-                            <ProjectsNav />
+                            <ListsNav />
                         </AppNav>
 
                         <AppContent>
@@ -52,8 +67,8 @@ export default function App() {
                                 />
 
                                 <Route
-                                    path="/projects/:projectId"
-                                    element={<Project />}
+                                    path="/lists/:listId"
+                                    element={<List />}
                                 />
 
                                 <Route

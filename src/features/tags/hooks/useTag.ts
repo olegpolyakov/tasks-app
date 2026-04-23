@@ -1,23 +1,28 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 
-import type { Tag } from '@olegpoliakov/core';
+import { useAtom } from 'jotai';
+
+import type { Tag } from '@olegpolyakov/tasks/core';
 
 import * as api from '../api';
+import { tagAtom } from '../atoms';
 
 export default function useTag(tagId: string) {
-    const [tag, setTag] = useState<Tag | null>(null);
+    const [tag, setTag] = useAtom(tagAtom);
 
     useEffect(() => {
         api.fetchTag(tagId).then(setTag);
-    }, [tagId]);
+    }, [tagId, setTag]);
 
     const updateTag = useCallback(async (data: Partial<Tag>) => {
-        await api.updateTag(tagId, data);
-    }, [tagId]);
+        const updatedTag = await api.updateTag(tagId, data);
+        setTag(updatedTag);
+    }, [tagId, setTag]);
 
     const deleteTag = useCallback(async () => {
         await api.deleteTag(tagId);
-    }, [tagId]);
+        setTag(null);
+    }, [tagId, setTag]);
 
     return {
         tag,

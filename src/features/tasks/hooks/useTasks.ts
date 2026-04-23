@@ -1,7 +1,8 @@
 import { useCallback, useEffect } from 'react';
 
-import type { Task } from '@olegpoliakov/tasks-core';
 import { useAtom } from 'jotai';
+
+import type { Task } from '@olegpolyakov/tasks-core';
 
 import * as api from '../api';
 import { tasksAtom } from '../atoms';
@@ -14,21 +15,27 @@ export default function useTasks() {
     }, [setTasks]);
 
     const createTask = useCallback(async (data: Partial<Task>) => {
-        const nextTask = await api.createTask(data);
+        const createdTask = await api.createTask(data);
 
-        setTasks(prevTasks => [...prevTasks, nextTask]);
+        setTasks(tasks => [...tasks, createdTask]);
+
+        return createdTask;
     }, [setTasks]);
 
     const updateTask = useCallback(async (id: string, data: Partial<Task>) => {
         const updatedTask = await api.updateTask(id, data);
 
         setTasks(prevTasks => prevTasks.map(task => task.id === id ? updatedTask : task));
+
+        return updatedTask;
     }, [setTasks]);
 
     const toggleTask = useCallback(async (id: string, completed: boolean) => {
         const updatedTask = await api.toggleTask(id, completed);
 
         setTasks(prevTasks => prevTasks.map(task => task.id === id ? updatedTask : task));
+
+        return updatedTask;
     }, [setTasks]);
 
     const deleteTask = useCallback(async (id: string) => {
@@ -37,12 +44,9 @@ export default function useTasks() {
         setTasks(prevTasks => prevTasks.filter(task => task.id !== id));
     }, [setTasks]);
 
-    const sortedTasks = [...tasks].sort((a, b) =>
-        a.completed === b.completed ? 0 : a.completed ? 1 : -1
-    );
-
     return {
-        tasks: sortedTasks,
+        tasks,
+        setTasks,
         createTask,
         updateTask,
         toggleTask,

@@ -1,12 +1,12 @@
 import { createContext, useContext } from 'react';
 
-import type { Tag } from '@olegpoliakov/core';
+import type { Tag } from '@olegpolyakov/tasks/core';
 
 export type TagsContext = {
     tags: Tag[];
     createTag: (data: Partial<Tag>) => Promise<void>;
     updateTag: (id: string, data: Partial<Tag>) => Promise<void>;
-    deleteTag: (id: string) => Promise<void>;
+    deleteTag: (id: string, options?: { deleteTasks?: boolean }) => Promise<void>;
 
     isTagDialogOpen: boolean;
     openTagDialog: (tag: Tag | null) => void;

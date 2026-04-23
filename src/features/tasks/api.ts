@@ -1,4 +1,4 @@
-import type { Task } from '@olegpoliakov/tasks-core';
+import type { Task } from '@olegpolyakov/tasks-core';
 
 import { API_URL } from '@/shared/constants';
 

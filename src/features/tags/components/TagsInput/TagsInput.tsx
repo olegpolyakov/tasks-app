@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 
-import type { Tag } from '@olegpoliakov/core/entities';
+import type { Tag } from '@olegpolyakov/tasks-core';
 import { Button, Field, Flex, Item, List, Pill, Popover } from 'kantanui';
 import { v4 as uuid } from 'uuid';
 

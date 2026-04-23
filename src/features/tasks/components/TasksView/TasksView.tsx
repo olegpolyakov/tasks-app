@@ -1,42 +1,94 @@
-import type { ReactNode } from 'react';
+import { type ReactNode, useCallback, useMemo } from 'react';
 
-import { Heading, State } from 'kantanui';
+import { Heading, type HeadingProps, State } from 'kantanui';
+
+import type { Task } from '@olegpolyakov/tasks-core';
+
+import { useSettingsContext } from '@/features/settings/contexts/SettingsContext';
 
 import NoTasksImage from '../../assets/no-tasks.svg';
-import { TaskInput, TasksList } from '../../components';
+import { TaskInput, TasksList, TasksSort, TaskView } from '../../components';
 import { useTaskContext, useTasksContext } from '../../contexts';
+import { filterAndSortTasks } from '../../helpers';
+import { useTasksSort } from '../../hooks';
 
 import styles from './TasksView.module.scss';
 
-export default function TasksView({ children }: {children?: ReactNode}) {
+const defaultFilter = () => true;
+
+export default function TasksView({
+    id,
+    heading = 'Tasks',
+    actions,
+    filter = defaultFilter
+}: {
+    id: string;
+    heading?: string | HeadingProps;
+    actions?: ReactNode;
+    filter?: (task: Task) => boolean;
+}) {
+    const { settings, updateSettings } = useSettingsContext();
     const {
-        heading,
         tasks,
         createTask,
         toggleTask,
         deleteTask
     } = useTasksContext();
-    
     const { task: selectedTask, setTask } = useTaskContext();
+    const {
+        sort,
+        sortKey,
+        sortDir,
+        changeSortKey,
+        toggleSortDir,
+        clearSort
+    } = useTasksSort(id);
+
+    const reorderTasks = useCallback((tasksInOrder: Task[]) => {
+        updateSettings({
+            tasksOrder: {
+                ...settings.tasksOrder,
+                [id]: tasksInOrder.map(task => task.id)
+            }
+        });
+        clearSort();
+    }, [updateSettings, settings.tasksOrder, id, clearSort]);
+    
+    const filteredAndSortedTasks = useMemo(() =>
+        filterAndSortTasks(tasks, filter, sort, settings.tasksOrder?.[id]),
+    [tasks, filter, sort, settings.tasksOrder, id]);
 
     return (
         <div className={styles.root}>
             <div className={styles.main}>
                 <div className={styles.header}>
                     <Heading
-                        content={heading}
+                        {...(typeof heading === 'string' ? { content: heading } : heading)}
                     />
+
+                    <div className={styles.actions}>
+                        <TasksSort
+                            sortKey={sortKey}
+                            sortDir={sortDir}
+                            onSortKeyChange={changeSortKey}
+                            onSortDirChange={toggleSortDir}
+                            onClear={clearSort}
+                        />
+
+                        {actions}
+                    </div>
                 </div>
                 
                 <div className={styles.body}>
-                    {tasks.length > 0 ?
+                    {filteredAndSortedTasks.length > 0 ?
                         <div className={styles.content}>
                             <TasksList
-                                tasks={tasks}
+                                tasks={filteredAndSortedTasks}
                                 selectedTask={selectedTask}
                                 onSelect={setTask}
                                 onToggle={toggleTask}
                                 onDelete={deleteTask}
+                                onReorder={reorderTasks}
                             />
                         </div>
                         :
@@ -54,7 +106,7 @@ export default function TasksView({ children }: {children?: ReactNode}) {
                 </div>
             </div>
 
-            {children}
+            <TaskView />
         </div>
     );
 }

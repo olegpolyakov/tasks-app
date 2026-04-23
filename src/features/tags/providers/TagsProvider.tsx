@@ -1,8 +1,11 @@
 import { type ReactNode, useCallback, useMemo, useState } from 'react';
 
-import type { Tag } from '@olegpoliakov/core';
+import { useAtom } from 'jotai';
 import { Dialog } from 'kantanui';
 
+import type { Tag } from '@olegpolyakov/tasks/core';
+
+import { tagAtom } from '../atoms';
 import { TagForm } from '../components';
 import { TagsContext } from '../contexts';
 import { useTags } from '../hooks';
@@ -15,18 +18,19 @@ export default function TagsProvider({ children }: {children: ReactNode}) {
         deleteTag
     } = useTags();
 
-    const [isTagDialogOpen, setTagDialogOpen] = useState(false);
+    const [tag, setTag] = useAtom(tagAtom);
 
-    const [tag, setTag] = useState<Tag | null>(null);
+    const [isTagDialogOpen, setTagDialogOpen] = useState(false);
 
     const handleSubmit = useCallback(async (data: Partial<Tag>) => {
         if (tag) {
-            await updateTag(tag.id, data);
+            await updateTag(tag.id, data).then(setTag);
         } else {
             await createTag(data);
         }
+        
         setTagDialogOpen(false);
-    }, [tag, createTag, updateTag]);
+    }, [tag, createTag, updateTag, setTag]);
 
     const value = useMemo(() => ({
         tags,
@@ -45,6 +49,7 @@ export default function TagsProvider({ children }: {children: ReactNode}) {
         }
     }), [
         tags,
+        setTag,
         createTag,
         updateTag,
         deleteTag,

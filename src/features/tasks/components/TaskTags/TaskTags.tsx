@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import type { Tag, Task } from '@olegpoliakov/tasks-core';
+import type { Tag, Task } from '@olegpolyakov/tasks-core';
 
 import { tagsApi, TagsInput } from '@/features/tags';
 
