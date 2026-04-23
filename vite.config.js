@@ -1,4 +1,4 @@
-import sharedConfig from '@olegpoliakov/shared/client/vite.config.js';
+import sharedConfig from '@olegpolyakov/frontend/config/vite.config.js';
 import { defineConfig } from 'vite';
 
 export default defineConfig(sharedConfig({

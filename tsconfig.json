@@ -1,5 +1,5 @@
 {
-  "extends": "@olegpoliakov/shared/client/tsconfig.base.json",
+  "extends": "@olegpolyakov/frontend/config/tsconfig.base.json",
   "compilerOptions": {
     "baseUrl": "."
   }

@@ -1,9 +1,9 @@
 {
-  "name": "@olegpoliakov/tasks-app",
+  "name": "@olegpolyakov/tasks-app",
   "version": "1.0.0",
-  "type": "module",
   "author": "Oleg Poliakov <olegpoliakov@outlook.com>",
   "description": "",
+  "type": "module",
   "scripts": {
     "compile": "tsc --noEmit",
     "dev": "vite",
@@ -11,6 +11,7 @@
     "lint": "eslint ./src"
   },
   "dependencies": {
+    "@dnd-kit/react": "^0.4.0",
     "jotai": "^2.19.0",
     "kantanui": "^0.2.3",
     "react": "^19.2.0",
@@ -19,6 +20,7 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@olegpolyakov/frontend": "^0.1.1",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@types/uuid": "^10.0.0",
