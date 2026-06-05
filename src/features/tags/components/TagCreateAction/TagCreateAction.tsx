@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react';
 
-import { Button, type ButtonProps,Dialog } from 'kantanui';
+import { Button, type ButtonProps, Dialog } from 'kantanui';
 
-import type { Tag } from '@olegpolyakov/tasks/core';
+import type { Tag } from '@olegpolyakov/tasks-core';
 
 import { useTagsContext } from '../../contexts';
 import TagForm from '../TagForm';

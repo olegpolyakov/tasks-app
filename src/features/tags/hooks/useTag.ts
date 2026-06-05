@@ -2,7 +2,7 @@ import { useCallback, useEffect } from 'react';
 
 import { useAtom } from 'jotai';
 
-import type { Tag } from '@olegpolyakov/tasks/core';
+import type { Tag } from '@olegpolyakov/tasks-core';
 
 import { useSettingsContext } from '@/features/settings';
 

@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import type { Tag } from '@olegpolyakov/tasks/core';
+import type { Tag } from '@olegpolyakov/tasks-core';
 
 export type TagContextValue = {
     tag: Tag;

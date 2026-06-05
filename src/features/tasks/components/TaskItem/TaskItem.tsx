@@ -1,5 +1,5 @@
 import { useSortable } from '@dnd-kit/react/sortable';
-import { Badge, Box, Checkbox, Flex, Icon, Item, Pill, type PillProps,Text } from 'kantanui';
+import { Badge, Box, Checkbox, Flex, Icon, Item, Pill, type PillProps, Text } from 'kantanui';
 
 import { type Task, TaskPriority } from '@olegpolyakov/tasks-core';
 

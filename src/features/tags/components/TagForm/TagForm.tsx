@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import { Button, Flex, Input } from 'kantanui';
 
+import type { Tag } from '@olegpolyakov/tasks-core';
 import EntityIcon from '@olegpolyakov/frontend/components/EntityIcon';
-import type { Tag } from '@olegpolyakov/tasks/core';
 
 export default function TagForm({
     data,
