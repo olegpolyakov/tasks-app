@@ -2,8 +2,9 @@ import { NavLink } from 'react-router-dom';
 
 import { Badge, Item, List } from 'kantanui';
 
+import EntityIcon from '@olegpolyakov/frontend/components/EntityIcon';
+
 import { useTasksContext } from '@/features/tasks';
-import EntityIcon from '@/shared/components/EntityIcon';
 
 import { useTagsContext } from '../../contexts';
 

@@ -3,9 +3,8 @@ import { useRef, useState } from 'react';
 import { Button, Field, Flex, Item, List, Pill, Popover } from 'kantanui';
 import { v4 as uuid } from 'uuid';
 
-import type { Tag } from '@olegpolyakov/tasks-core';
-
-import EntityIcon from '@/shared/components/EntityIcon';
+import EntityIcon from '@olegpolyakov/frontend/components/EntityIcon';
+import type { Tag } from '@olegpolyakov/tasks/core';
 
 import { useTagsContext } from '../../contexts';
 

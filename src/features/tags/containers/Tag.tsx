@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom';
 
+import EntityIcon from '@olegpolyakov/frontend/components/EntityIcon';
+
 import { TaskProvider, TasksView } from '@/features/tasks';
-import EntityIcon from '@/shared/components/EntityIcon';
 
 import { TagDeleteAction, TagEditAction } from '../components';
 import { TagProvider } from '../providers';

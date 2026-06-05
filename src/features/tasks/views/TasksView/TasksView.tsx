@@ -4,7 +4,7 @@ import { ButtonGroup, Heading, type HeadingProps, State } from 'kantanui';
 
 import type { Task } from '@olegpolyakov/tasks-core';
 
-import { useSettingsContext } from '@/features/settings/contexts/SettingsContext';
+import { useSettingsContext } from '@/features/settings';
 
 import NoTasksImage from '../../assets/no-tasks.svg';
 import { TaskInput, TasksList, TasksSort } from '../../components';

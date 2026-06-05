@@ -1,48 +1,61 @@
-import { Button, Field, Pill, PillGroup, Popover, Select } from 'kantanui';
+import { Button, Field, Popover, Select, Text } from 'kantanui';
 
-import { type TaskRecurrence, TaskRecurrenceFrequency } from '@olegpolyakov/tasks/core';
+import { type RecurrenceData, RecurrenceFrequency } from '@olegpolyakov/core';
+
+import DailyRecurrenceSettings, { getDailyRecurrenceDescription } from './DailyRecurrenceSettings';
+import MonthlyRecurrenceSettings, { getMonthlyRecurrenceDescription } from './MonthlyRecurrenceSettings';
+import WeeklyRecurrenceSettings, { getWeeklyRecurrenceDescription } from './WeeklyRecurrenceSettings';
+import YearlyRecurrenceSettings, { getYearlyRecurrenceDescription } from './YearlyRecurrenceSettings';
+
+const frequencySettingsComponents = {
+    [RecurrenceFrequency.Daily]: DailyRecurrenceSettings,
+    [RecurrenceFrequency.Weekly]: WeeklyRecurrenceSettings,
+    [RecurrenceFrequency.Monthly]: MonthlyRecurrenceSettings,
+    [RecurrenceFrequency.Yearly]: YearlyRecurrenceSettings
+};
+
+const frequencyLabels: Record<RecurrenceFrequency, string> = {
+    [RecurrenceFrequency.Daily]: 'Daily',
+    [RecurrenceFrequency.Weekly]: 'Weekly',
+    [RecurrenceFrequency.Monthly]: 'Monthly',
+    [RecurrenceFrequency.Yearly]: 'Yearly'
+};
+
+const frequencyDescriptions = {
+    [RecurrenceFrequency.Daily]: getDailyRecurrenceDescription,
+    [RecurrenceFrequency.Weekly]: getWeeklyRecurrenceDescription,
+    [RecurrenceFrequency.Monthly]: getMonthlyRecurrenceDescription,
+    [RecurrenceFrequency.Yearly]: getYearlyRecurrenceDescription
+};
+
+const frequencyOptions = Object.entries(frequencyLabels).map(([value, label]) => ({
+    value: value as RecurrenceFrequency,
+    label
+}));
 
 export default function TaskRecurrence({
     recurrence,
     onChange
 }: {
-    recurrence?: TaskRecurrence;
-    onChange?: (recurrence: TaskRecurrence) => void
+    recurrence?: RecurrenceData;
+    onChange?: (recurrence: RecurrenceData) => void
 }) {
+    const RecurrenceSettings = recurrence ? frequencySettingsComponents[recurrence.frequency] : null;
+
     return (
         <Field label="Recurrence">
             <Select
-                options={[
-                    {
-                        value: TaskRecurrenceFrequency.Daily,
-                        label: 'Daily'
-                    },
-                    {
-                        value: TaskRecurrenceFrequency.Weekly,
-                        label: 'Weekly'
-                    },
-                    {
-                        value: TaskRecurrenceFrequency.Monthly,
-                        label: 'Monthly'
-                    },
-                    {
-                        value: TaskRecurrenceFrequency.Yearly,
-                        label: 'Yearly'
-                    }
-                ]}
                 value={recurrence?.frequency}
-                onChange={({ value }) => {
-                    if (!value) return;
-
-                    onChange?.({
-                        frequency: value as TaskRecurrenceFrequency,
-                        interval: 1
-                    });
-                }}
+                options={frequencyOptions}
+                onChange={({ value }) =>  onChange?.({
+                    frequency: value as RecurrenceFrequency,
+                    interval: 1,
+                    values: recurrence?.frequency === value
+                        ? recurrence?.values
+                        : []
+                })}
                 end={recurrence && (
-                    <div onClick={event => {
-                        event.stopPropagation();
-                    }}>
+                    <div onClick={event => event.stopPropagation()}>
                         <Popover
                             placement="bottom-end"
                             trigger={
@@ -51,23 +64,31 @@ export default function TaskRecurrence({
                                         name: 'settings',
                                         size: 's'
                                     }}
-                                
+                                    size="s"
                                 />
                             }
                         >
-                            <PillGroup>
-                                <Pill content="Пн" />
-                                <Pill content="Вт" />
-                                <Pill content="Ср" />
-                                <Pill content="Чт" />
-                                <Pill content="Пт" />
-                                <Pill content="Сб" />
-                                <Pill content="Вс" />
-                            </PillGroup>
+                            {RecurrenceSettings && (
+                                <RecurrenceSettings
+                                    recurrence={recurrence}
+                                    onChange={values => onChange?.({
+                                        ...recurrence,
+                                        values
+                                    })}
+                                />
+                            )}
                         </Popover>
                     </div>
                 )}
             />
+
+            {recurrence && (
+                <Text
+                    content={frequencyDescriptions[recurrence.frequency](recurrence)}
+                    size="s"
+                    color="secondary"
+                />
+            )}
         </Field>
     );
 }
