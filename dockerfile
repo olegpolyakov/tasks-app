@@ -2,6 +2,12 @@ FROM node:25-alpine AS build
 
 WORKDIR /code
 
+ARG VITE_API_URL
+ARG VITE_AUTH_URL
+
+ENV VITE_API_URL=$VITE_API_URL
+ENV VITE_AUTH_URL=$VITE_AUTH_URL
+
 COPY .npmrc ./
 COPY package*.json ./
 
