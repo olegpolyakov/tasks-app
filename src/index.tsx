@@ -1,4 +1,5 @@
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import App from './app';
 
@@ -7,5 +8,7 @@ import 'kantanui/styles';
 import './index.scss';
 
 createRoot(document.getElementById('root')!).render(
-    <App />
+    <Router>
+        <App />
+    </Router>
 );
