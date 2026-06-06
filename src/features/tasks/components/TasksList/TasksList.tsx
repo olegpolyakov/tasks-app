@@ -42,7 +42,7 @@ export default function TasksList({
         <DragDropProvider
             onDragEnd={handleDragEnd}
         >
-            <List gap="s" interactive>
+            <List gap="s" shape="rounded-m" variant="plain" interactive>
                 {tasks?.map((task, index) => (
                     <TaskItem
                         key={task.id}
